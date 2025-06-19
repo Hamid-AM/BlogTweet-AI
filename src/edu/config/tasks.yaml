@@ -1,0 +1,35 @@
+search_for_news:
+  description: "Find recent and relevant information, news, and trends about '${subject}'. Focus on extracting key data points and insights."
+  agent: market_analyst
+  output_to_stdout: True
+  expected_output: "A summary of relevant information and trends."
+
+analyze_market_data:
+  description: "Analyze the information gathered by the Market Analyst about '${subject}'. Identify the most important insights, trends, and create a structured outline for a blog post."
+  agent: data_analyst
+  output_to_stdout: True
+  expected_output: "Key insights, trends, and a blog post outline."
+
+write_blog_post:
+  description: "Write a comprehensive and engaging blog post about '${subject}', based on the insights and outline provided by the Data Analyst."
+  agent: content_creator
+  output_to_stdout: True
+  expected_output: "A full blog post."
+
+write_social_posts:
+  description: "Create only one Twitter post summarizing the blog post about '${subject}' and make it's well structured and nothing else"
+  agent: chief_content_officer
+  output_to_stdout: True
+  expected_output: "A Twitter post summarizing the blog."
+
+review_content:
+  description: "Review the generated blog post, and Twitter post for grammar, clarity, tone, and structural consistency. Provide feedback and suggest improvements if necessary."
+  agent: content_reviewer
+  output_to_stdout: True
+  expected_output: "Reviewed and feedback on the content."
+
+post_to_twitter:
+  description: "You need to post the reviewed Twitter content to Twitter using the 'TwitterPostTool'. The content to post is: '${reviewed_twitter_content}'. Call the tool with this content as the input."
+  agent: twitter_poster
+  output_to_stdout: True
+  expected_output: "Confirmation of the tweet being posted with the Tweet ID."

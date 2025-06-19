@@ -1,0 +1,17 @@
+.env
+__pycache__/
+.DS_Store
+
+**/__pycache__/
+*.pyc
+*.pyd
+*.pyo
+# Specific editor/IDE files
+.idea/  # For PyCharm/IntelliJ
+.vscode/ # For VS Code
+*.sublime-project
+*.sublime-workspace
+uv.lock
+# Operating System Files
+Thumbs.db 
+
