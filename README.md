@@ -1,54 +1,146 @@
-# BlogTweet- AI - Crew
+## Overview
 
-Welcome to the Edu Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+**Content Forge** is an automated content generation pipeline powered by **CrewAI**. This project orchestrates a team of specialized AI agents to collaboratively research a given subject, analyze findings, draft a comprehensive blog post, adapt content for social media, rigorously review it, and finally, publish tweets directly to Twitter. The primary goal is to streamline the entire content creation process, from initial research to final social media distribution.
 
-## Installation
+## Features
 
-Ensure you have Python >=3.10 <3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+  * **Intelligent Research:** Agents equipped with web search and scraping tools gather relevant information and identify trends.
+  * **Data Analysis & Structuring:** Transforms raw research data into structured insights and clear outlines for content creation.
+  * **Blog Post Generation:** Crafts well-structured, long-form blog posts on any specified topic.
+  * **Social Media Adaptation:** Converts blog content into engaging and platform-specific social media posts (currently focused on Twitter).
+  * **Content Review:** Ensures all generated content meets quality standards, checking for grammar, clarity, tone, and consistency.
+  * **Automated Twitter Publishing:** Posts reviewed content directly to Twitter using a custom-built tool.
 
-First, if you haven't already, install uv:
+## How It Works (The Agent Team)
+
+The project leverages a crew of distinct AI agents, each with a specialized role:
+
+1.  **Market Analyst:**
+
+      * **Role:** The "Researcher."
+      * **Goal:** Find relevant information and trends about the subject using web search and scraping tools.
+
+2.  **Data Analyst:**
+
+      * **Role:** The "Organizer & Insight Extractor."
+      * **Goal:** Synthesize raw research into key insights, trends, and a structured outline for the content.
+
+3.  **Content Creator:**
+
+      * **Role:** The "Writer."
+      * **Goal:** Write a long-form, polished blog post based on the provided insights and outline.
+
+4.  **Chief Content Officer:**
+
+      * **Role:** The "Social Media Strategist."
+      * **Goal:** Convert the blog post into engaging social media posts, specifically focusing on Twitter content.
+
+5.  **Content Reviewer:**
+
+      * **Role:** The "Quality Controller."
+      * **Goal:** Review the blog post and social media content for grammar, clarity, tone, and structural consistency.
+
+6.  **Twitter Poster:**
+
+      * **Role:** The "Publisher."
+      * **Goal:** Effectively share reviewed social media content on Twitter using the custom `TwitterPostTool`.
+
+## Setup and Installation
+
+### Prerequisites
+
+  * Python 3.12+ (It's recommended to use the same Python version your `venv` was created with).
+  * API keys for your chosen Large Language Model (LLM) provider (e.g., OpenAI, Anthropic, Google Gemini).
+  * Twitter Developer Account and API credentials (Consumer Key, Consumer Secret, Bearer Token, Access Token, Access Token Secret).
+
+### Steps
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/Hamid-AM/BlogTweet-AI.git # Adjust if your repo name is different
+    cd BlogTweet-AI/edu
+    ```
+
+2.  **Create a Python Virtual Environment:**
+    It's highly recommended to use a virtual environment to manage dependencies.
+
+    ```bash
+    python3 -m venv venv
+    ```
+
+3.  **Activate the Virtual Environment:**
+
+      * On macOS/Linux:
+        ```bash
+        source venv/bin/activate
+        ```
+      * On Windows (Command Prompt):
+        ```bash
+        venv\Scripts\activate.bat
+        ```
+      * On Windows (PowerShell):
+        ```powershell
+        .\venv\Scripts\Activate.ps1
+        ```
+
+    You should see `(venv)` at the beginning of your terminal prompt, indicating the virtual environment is active.
+
+4.  **Install Dependencies:**
+    Install all required Python packages. If you have a `requirements.txt` file, use it. Otherwise, install them manually:
+
+    ```bash
+    pip install crewai python-dotenv pyyaml tweepy crewai-tools
+    ```
+
+    *(If you used `uv` for your venv setup, you might use `uv pip install ...` instead of `pip install ...`)*
+
+5.  **Configure Environment Variables (.env file):**
+    Create a file named `.env` in the root of your `edu` project directory (where `main.py` is located). Add your LLM and Twitter API credentials to this file:
+
+    ```dotenv
+    # LLM API Key (Example for OpenAI)
+    OPENAI_API_KEY=your_openai_api_key_here
+    # Or for others, e.g., GOOGLE_API_KEY=your_google_api_key
+
+    # Twitter API Keys
+    TWITTER_API_KEY=your_consumer_key_here
+    TWITTER_API_SECRET=your_consumer_secret_here
+    TWITTER_BEARER_TOKEN=your_bearer_token_here
+    TWITTER_ACCESS_TOKEN=your_access_token_here
+    TWITTER_ACCESS_SECRET=your_access_token_secret_here
+    ```
+
+    **Important:** Do not commit your `.env` file to version control (e.g., Git) as it contains sensitive information.
+
+## Usage
+
+To run the content generation pipeline, execute the `main.py` script from your project's `edu` directory and provide the subject as an argument.
 
 ```bash
-pip install uv
+cd edu # Ensure you are in the edu directory
+python main.py "The Future of AI in Healthcare"
 ```
 
-Next, navigate to your project directory and install the dependencies:
+Replace `"The Future of AI in Healthcare"` with your desired blog post subject.
 
-(Optional) Lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
+The crew will then begin its process, and you'll see verbose output in your terminal as agents perform their tasks. Upon completion, the final generated content (including blog post snippets and tweet status) will be printed.
+
+## Project Structure
+
 ```
-### Customizing
-
-**Add your `OPENAI_API_KEY` into the `.env` file**
-
-- Modify `src/edu/config/agents.yaml` to define your agents
-- Modify `src/edu/config/tasks.yaml` to define your tasks
-- Modify `src/edu/crew.py` to add your own logic, tools and specific args
-- Modify `src/edu/main.py` to add custom inputs for your agents and tasks
-
-## Running the Project
-
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
-
-```bash
-$ crewai run
-```
-
-This command initializes the BlogTweet Crew, assembling the agents and assigning them tasks as defined in your configuration.
-
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
-
-## Understanding Your Crew
-
-The BlogTweet Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
-
-## Support
-
-For support, questions, or feedback regarding the BlogTweet Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
-
-Let's create wonders together with the power and simplicity of crewAI.
+.
+├── config/
+│   ├── agents.yaml           # Defines AI agent roles, goals, and backstories
+│   └── tasks.yaml            # Defines the sequential tasks for the agents
+├── src/
+│   └── edu/
+│       ├── __init__.py
+│       ├── crew.py           # Contains the CrewAI setup, agent, and task loading logic
+│       ├── main.py           # Entry point for running the project
+│       └── tools/
+│           ├── __init__.py
+│           └── custom_tool.py  # Custom TwitterPostTool implementation
+├── venv/                     # Python virtual environment (ignored by Git)
+├── .env                      # Environment variables (ignored by Git)
+└── README.md                 # This file
