@@ -59,7 +59,7 @@ The project leverages a crew of distinct AI agents, each with a specialized role
 
     ```bash
     git clone https://github.com/Hamid-AM/BlogTweet-AI.git # Adjust if your repo name is different
-    cd BlogTweet-AI/edu
+    cd BlogTweet-AI/ai-content-generator
     ```
 
 2.  **Create a Python Virtual Environment:**
@@ -96,7 +96,7 @@ The project leverages a crew of distinct AI agents, each with a specialized role
     *(If you used `uv` for your venv setup, you might use `uv pip install ...` instead of `pip install ...`)*
 
 5.  **Configure Environment Variables (.env file):**
-    Create a file named `.env` in the root of your `edu` project directory (where `main.py` is located). Add your LLM and Twitter API credentials to this file:
+    Create a file named `.env` in the root of your `ai-content-generator` project directory (where `main.py` is located). Add your LLM and Twitter API credentials to this file:
 
     ```dotenv
     # LLM API Key (Example for OpenAI)
@@ -115,10 +115,10 @@ The project leverages a crew of distinct AI agents, each with a specialized role
 
 ## Usage
 
-To run the content generation pipeline, execute the `main.py` script from your project's `edu` directory and provide the subject as an argument.
+To run the content generation pipeline, execute the `main.py` script from your project's `ai-content-generator` directory and provide the subject as an argument.
 
 ```bash
-cd edu # Ensure you are in the edu directory
+cd ai-content-generator # Ensure you are in the ai-content-generator directory
 python main.py "The Future of AI in Healthcare"
 ```
 
@@ -134,7 +134,7 @@ The crew will then begin its process, and you'll see verbose output in your term
 │   ├── agents.yaml           # Defines AI agent roles, goals, and backstories
 │   └── tasks.yaml            # Defines the sequential tasks for the agents
 ├── src/
-│   └── edu/
+│   └── ai-content-generator/
 │       ├── __init__.py
 │       ├── crew.py           # Contains the CrewAI setup, agent, and task loading logic
 │       ├── main.py           # Entry point for running the project
